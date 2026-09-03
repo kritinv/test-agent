@@ -1,0 +1,31 @@
+name: Confident PR Eval Gate
+# Keep these triggers so the gate runs on every pull request and refreshes the
+# baseline on pushes to the default branch.
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  eval-gate:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r agents/01-web-research-agent/requirements.txt
+      - name: Confident PR Eval Gate
+        uses: confident-ai/deepeval-actions/actions/eval-gate@v1
+        with:
+          base_url: "https://api.confident-ai.com"
+          dataset_alias: "test dataset"
+          dataset_version: "latest"
+          confident_api_key: ${{ secrets.CONFIDENT_API_KEY }}
