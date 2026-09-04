@@ -1,7 +1,7 @@
 """Confident eval entrypoint.
 
 Keep this file at the repo root with a single `run(input)` function that returns
-the app output as a string.
+the app output as a string
 """
 
 from importlib.util import module_from_spec, spec_from_file_location
