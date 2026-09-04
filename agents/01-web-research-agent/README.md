@@ -14,6 +14,8 @@ A LangGraph agent that searches the web for any topic and synthesizes a structur
 
 ## Setup
 
+Requires Python 3.10 or newer.
+
 ```bash
 pip install -r requirements.txt
 cp .env.example .env

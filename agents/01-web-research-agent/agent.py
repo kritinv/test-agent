@@ -10,11 +10,10 @@ Usage:
 """
 
 import argparse
-import os
 from typing import Annotated, TypedDict
 
 from dotenv import load_dotenv
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 from langchain_tavily import TavilySearch
 from langgraph.graph import END, StateGraph
@@ -32,7 +31,7 @@ class ResearchState(TypedDict):
 
 def search_web(state: ResearchState) -> ResearchState:
     tool = TavilySearch(max_results=5)
-    raw_results = tool.invoke(state["query"])
+    raw_results = tool.invoke({"query": state["query"]})
     if isinstance(raw_results, dict):
         results = raw_results.get("results", [])
     elif isinstance(raw_results, list):
