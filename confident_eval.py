@@ -32,7 +32,7 @@ def run(input):
 
     query = input
     if isinstance(input, dict):
-        query = input.get("query", input)
+        query = input.get("query", input.get("input", input))
     elif isinstance(input, str):
         text = input.strip()
         if text.startswith("{"):
@@ -41,7 +41,7 @@ def run(input):
             except Exception:
                 parsed = None
             if isinstance(parsed, dict):
-                query = parsed.get("query", input)
+                query = parsed.get("query", parsed.get("input", input))
 
     result = _GRAPH.invoke({"query": str(query), "messages": [], "search_results": [], "report": ""})
     return str(result.get("report", ""))
