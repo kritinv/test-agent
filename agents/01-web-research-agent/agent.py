@@ -55,7 +55,8 @@ def synthesize_report(state: ResearchState) -> ResearchState:
                 "You are a research analyst. Synthesize only the provided search results "
                 "into a clear report with Summary, Key Findings, and Sources sections. "
                 "Support every factual claim with an inline Markdown link to its source, "
-                "and never invent facts, quotations, or URLs."
+                "clearly call out uncertainty or disagreement between sources, and never "
+                "invent facts, quotations, or URLs."
             )
         ),
         HumanMessage(content=f"Research query: {state['query']}\n\nSearch results:\n{results_text}"),
