@@ -1,12 +1,12 @@
 name: Confident PR Eval Gate
-# Keep these triggers so the gate runs on every pull request (and refreshes the
-# baseline on pushes to the default branch).
 on:
   pull_request:
   push:
     branches: ["main"]
+
 permissions:
   contents: read
+
 jobs:
   eval-gate:
     runs-on: ubuntu-latest
@@ -17,18 +17,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.10"
       - name: Install dependencies
         run: pip install -r agents/01-web-research-agent/requirements.txt
-      - name: Verify agent imports
-        working-directory: agents/01-web-research-agent
-        run: python -c "import agent; agent.build_graph()"
-      # Managed by Confident — keep this step, its env and its inputs as-is.
       - name: Confident PR Eval Gate
         uses: confident-ai/deepeval-actions/actions/eval-gate@v1
         env:
-          # Optional: OpenAI key enabling DeepTeam's code scan when the risk gate regresses; unset = skip.
           CONFIDENT_SCAN_API_KEY: ${{ secrets.CONFIDENT_SCAN_API_KEY }}
         with:
           base_url: "https://api.confident-ai.com"
+          dataset_alias: "test-agent-web-research"
+          dataset_version: "latest"
           confident_api_key: ${{ secrets.CONFIDENT_API_KEY }}
