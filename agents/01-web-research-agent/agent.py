@@ -50,7 +50,15 @@ def synthesize_report(state: ResearchState) -> ResearchState:
     )
 
     messages = [
-        SystemMessage(content="You are a research analyst. Synthesize the search results into a clear, structured report with: Summary, Key Findings (bullet points), and Sources."),
+        SystemMessage(
+            content=(
+                "You are a research analyst. Synthesize only the provided search results "
+                "into a clear report with Summary, Key Findings, and Sources sections. "
+                "Support every factual claim with an inline Markdown link to its source, "
+                "clearly call out uncertainty or disagreement between sources, and never "
+                "invent facts, quotations, or URLs."
+            )
+        ),
         HumanMessage(content=f"Research query: {state['query']}\n\nSearch results:\n{results_text}"),
     ]
 

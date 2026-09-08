@@ -25,7 +25,7 @@ jobs:
         run: python -c "import agent; agent.build_graph()"
       # Managed by Confident — keep this step, its env and its inputs as-is.
       - name: Confident PR Eval Gate
-        uses: confident-ai/deepeval-actions/actions/eval-gate@v1
+        uses: confident-ai/confident-actions/actions/eval-gate@v1
         env:
           # Optional: OpenAI key enabling DeepTeam's code scan when the risk gate regresses; unset = skip.
           CONFIDENT_SCAN_API_KEY: ${{ secrets.CONFIDENT_SCAN_API_KEY }}
