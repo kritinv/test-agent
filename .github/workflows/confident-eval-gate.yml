@@ -31,4 +31,6 @@ jobs:
           CONFIDENT_SCAN_API_KEY: ${{ secrets.CONFIDENT_SCAN_API_KEY }}
         with:
           base_url: "https://api.confident-ai.com"
+          dataset_alias: "ci-openai-agents-python"
+          dataset_version: "latest"
           confident_api_key: ${{ secrets.CONFIDENT_API_KEY }}
