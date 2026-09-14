@@ -12,6 +12,7 @@ Usage:
 import argparse
 from typing import Annotated, TypedDict
 
+from confident_trace import init, span
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
@@ -20,6 +21,7 @@ from langgraph.graph import END, StateGraph
 from langgraph.graph.message import add_messages
 
 load_dotenv()
+init()
 
 
 class ResearchState(TypedDict):
@@ -29,6 +31,7 @@ class ResearchState(TypedDict):
     report: str
 
 
+@span(type="tool")
 def search_web(state: ResearchState) -> ResearchState:
     tool = TavilySearch(max_results=5)
     raw_results = tool.invoke({"query": state["query"]})
