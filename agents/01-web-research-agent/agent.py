@@ -12,6 +12,7 @@ Usage:
 import argparse
 from typing import Annotated, TypedDict
 
+from confident_trace import init, shutdown, span
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
@@ -73,15 +74,20 @@ def main():
     parser.add_argument("--query", default="latest advances in AI agents 2024", help="Research query")
     args = parser.parse_args()
 
-    print(f"\n🔍 Researching: {args.query}\n")
+    init()
+    try:
+        print(f"\n🔍 Researching: {args.query}\n")
 
-    agent = build_graph()
-    result = agent.invoke({"query": args.query, "messages": [], "search_results": [], "report": ""})
+        agent = build_graph()
+        with span("research", type="agent"):
+            result = agent.invoke({"query": args.query, "messages": [], "search_results": [], "report": ""})
 
-    print("=" * 60)
-    print("📄 RESEARCH REPORT")
-    print("=" * 60)
-    print(result["report"])
+        print("=" * 60)
+        print("📄 RESEARCH REPORT")
+        print("=" * 60)
+        print(result["report"])
+    finally:
+        shutdown()
 
 
 if __name__ == "__main__":
