@@ -22,6 +22,8 @@ cp .env.example .env
 # Edit .env and add your API keys
 ```
 
+Set `CONFIDENT_API_KEY` in your environment to export traces to Confident AI.
+
 Get free API keys:
 - OpenAI: https://platform.openai.com/api-keys
 - Tavily: https://app.tavily.com (free tier available)

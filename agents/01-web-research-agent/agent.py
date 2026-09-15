@@ -12,6 +12,7 @@ Usage:
 import argparse
 from typing import Annotated, TypedDict
 
+from confident_trace import init
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
@@ -20,6 +21,7 @@ from langgraph.graph import END, StateGraph
 from langgraph.graph.message import add_messages
 
 load_dotenv()
+init()
 
 
 class ResearchState(TypedDict):

@@ -3,4 +3,5 @@ langchain-core==1.6.1
 langchain-openai==1.6.0
 langchain-tavily==0.2.18
 langgraph==1.2.11
+confident-trace
 python-dotenv==1.2.3
